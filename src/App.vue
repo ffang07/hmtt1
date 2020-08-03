@@ -1,5 +1,5 @@
 <template>
- <div id='app'>aaa
+ <div id='app'>
    <!-- 根组件添加路由映射 -->
    <router-view></router-view>
  </div>
