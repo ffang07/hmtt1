@@ -10,14 +10,14 @@
       <div class="inputs">
         <!-- <input  placeholder="请输入手机号" class="input" />
         <input  placeholder="密码" class="input" type="password" /> -->
-        <hminput placeholder='请输入11位手机号' :rules='/^1\d{10}$/' err_msg='必须是11位手机号' @input='fcl2' ></hminput>
-        <hminput placeholder='请输入密码' type='password'></hminput>
+        <hminput v-model='users.username' placeholder='请输入11位手机号' :rules='/^1\d{10}$/' err_msg='必须是11位手机号' @input='fcl2' ></hminput>
+        <hminput v-model="users.password" placeholder='请输入密码' type='password'></hminput>
       </div>
       <p class="tips">
         没有账号？
         <a href="#/register" class>去注册</a>
       </p>
-      <hmbutton text='登陆' @click='fcl1'></hmbutton>
+      <hmbutton text='登陆' @click='login'></hmbutton>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@
 <script>
 import hmbutton from '@/components/hm_button'
 import hminput from '@/components/hm_input'
+import {userLogin} from '@/api/users'
 
 export default {
     components:{
@@ -34,15 +35,25 @@ export default {
     data(){
         return{
             users:{
-                user:'',
+                username:'',
                 password:''
             }
             
         }
     },
     methods:{
-        fcl1(e){
-            console.log(e)
+        login(e){
+            userLogin(this.users).then(res=>{
+                if(res.data.message==="登录成功"){
+                    console.log('登陆成功，跳到个人中心页')
+                }else{
+                    this.$toast.fail('用户名或密码错误')
+                }
+                console.log(e,this.users,res)
+            }).catch(err=>{
+                this.$toast.fail('请稍后再试')
+                console.log(err)
+            })
         },
         fcl2(v){
             this.user=v;

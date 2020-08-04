@@ -30,7 +30,7 @@ export default {
         if(this.rules && !this.rules.test(value)){
             // console.log('toast提示输入错误err_msg')
             // Toast.fail(this.err_msg || '输入错误')
-            this.$toast(this.err_msg || '输入错误')
+            this.$toast.fail(this.err_msg || '输入错误')
         }
     },
   },
