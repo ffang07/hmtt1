@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from '@/router/router.js'
+import router from '@/routers/index.js'
 import {Toast} from 'vant'
 
 // 引入全局初始化样式

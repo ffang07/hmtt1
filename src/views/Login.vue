@@ -25,7 +25,7 @@
 <script>
 import hmbutton from '@/components/hm_button'
 import hminput from '@/components/hm_input'
-import {userLogin} from '@/api/users'
+import {userLogin} from '@/apiaxios/users'
 
 export default {
     components:{
@@ -45,13 +45,15 @@ export default {
         login(e){
             userLogin(this.users).then(res=>{
                 if(res.data.message==="登录成功"){
-                    console.log('登陆成功，跳到个人中心页')
+                    // console.log('登陆成功，存token，跳到个人中心页')
+                    localStorage.setItem('hmtt1_token',res.data.data.token)
+                    this.$router.push({path:`/personal/${res.data.data.user.id}`})
                 }else{
                     this.$toast.fail('用户名或密码错误')
                 }
                 console.log(e,this.users,res)
             }).catch(err=>{
-                this.$toast.fail('请稍后再试')
+                this.$toast.fail('err请稍后再试')
                 console.log(err)
             })
         },
